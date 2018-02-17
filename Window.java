@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import java.util.Scanner;
 
 
-public class Window extends JFrame implements MouseMotionListener
+public class Window extends JFrame
 {
 	State state = new State();
 	Controller control = new Controller();
@@ -21,8 +21,9 @@ public class Window extends JFrame implements MouseMotionListener
 		{
 			
 			panel.setSize(state.width, state.height);
-			state.update();
 			panel.repaint();
+			state.update();
+			
 							
 			//String s = console.next();
 			//chew();
@@ -42,7 +43,6 @@ public class Window extends JFrame implements MouseMotionListener
 		setMaximumSize(new java.awt.Dimension(1600, 1200));
 		setVisible(true);
 		addKeyListener(control);
-		addMouseMotionListener(this);
 		loadImages();
 		initPanel();
 		add(panel);
@@ -65,7 +65,8 @@ public class Window extends JFrame implements MouseMotionListener
             state.smallselection = ImageIO.read(new File("smallselection.png"));
             state.bg = ImageIO.read(new File("Background.jpg"));
             state.building = ImageIO.read(new File("Building2.png"));
-            state.monster = ImageIO.read(new File("monster3.png"));
+            state.cube = ImageIO.read(new File("Blue Alien.png"));
+            state.line = ImageIO.read(new File("Line.png"));
         }
         catch(IOException ex)
         {
@@ -78,19 +79,6 @@ public class Window extends JFrame implements MouseMotionListener
         panel = new DrawPanel();
     }
 
-
-	public void mouseMoved(MouseEvent e)
-    {
-        //state.mouseX = e.getX();
-        //state.mouseY = e.getY();
-        //System.out.println(state.mouseX);
-        //System.out.println(state.mouseY);
-    }
-
-    public void mouseDragged(MouseEvent e)
-    {
-
-    }
 
 
 }
