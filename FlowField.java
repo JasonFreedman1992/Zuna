@@ -24,7 +24,7 @@ public class FlowField
 		//System.out.println(z);
 	}
 
-	public double vx(int p_i, int p_j)
+	public double angle(int p_i, int p_j)
 	{
 		return grid[p_i][p_j];
 	}

@@ -65,7 +65,7 @@ public class State
 			//flow.generateFlow();
 			int x = monster.XCenter/100;
 			int y = monster.YCenter/100;
-			double angle = flow.vx(y, x);
+			double angle = flow.angle(y, x);
             if((angle*Math.PI) < 0)
             {
                 monster.vx = 20 - (-40 * angle);
