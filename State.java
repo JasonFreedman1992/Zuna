@@ -15,11 +15,6 @@ public class State
 
 	public Random r = new Random();
 
-	public static boolean monsterSelected;
-	public static boolean monsterMoving;
-	public static boolean monsterXReached = true;
-	public static boolean monsterYReached = true;
-
 	Monster monster = new Monster();
 
 	//
@@ -64,10 +59,44 @@ public class State
 			monster.YCenter = monster.Y;
 			mouseClicked = false;
 		}
-		if(monsterMoving)
+		if(monster.Moving)
 		{
 			double friction = r.nextDouble();
-			flow.generateFlow();
+			//flow.generateFlow();
+			int x = monster.XCenter/100;
+			int y = monster.YCenter/100;
+			double angle = flow.vx(y, x);
+            if((angle*Math.PI) < 0)
+            {
+                monster.vx = 20 - (-40 * angle);
+                if(angle < 0 && angle >= -.5)
+                {
+                    monster.vy = 0 + (40 * angle);
+                }
+                else if(angle < -.5 && angle >= - 1)
+                {
+                    monster.vy = 40 * (-1 - angle);
+                }
+            }
+            else if((angle*Math.PI) > 0)
+            {
+                monster.vx = 20 + (-40 * angle);
+                if(angle > 0 && angle <= .5)
+                {
+                    monster.vy = 0 + (40 * angle);
+                }
+                else if(angle > .5 && angle < 1)
+                {
+                    monster.vy = -40 * (-1 + angle);
+                }
+            }
+
+            monster.X += monster.vx;
+            monster.Y += monster.vy;
+            monster.XCenter += monster.vx;
+            monster.YCenter += monster.vy;
+            System.out.println("monster vx =" + monster.vx);
+            System.out.println("monster vy =" + monster.vy);
 
     // 		if(down)
     // 		{

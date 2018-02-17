@@ -10,9 +10,9 @@ public class FlowField
 
 	public double grid[][] = new double[12][16];
 	//public static Scanner console = new Scanner(System.in);
-	// 0 = 1-10
-	// 1 = 11-20
-	// 2 = 21-30
+	// 0 = 1-100
+	// 1 = 101-200
+	// 2 = 201-300
 
 	// pixel 450 = 44
 	// pixel 1600 = 159
@@ -24,9 +24,14 @@ public class FlowField
 		//System.out.println(z);
 	}
 
-	public void generateFlow()
+	public double vx(int p_i, int p_j)
 	{
+		return grid[p_i][p_j];
+	}
 
+	public double vy()
+	{
+		return 5;
 	}
 	// public FlowField(int p_monsterXCenter, int p_monsterYCenter, int p_monsterXDestination, int p_monsterYDestination, int p_rockX, int p_rockY)
 	// {

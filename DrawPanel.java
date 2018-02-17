@@ -75,9 +75,9 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
 	            	int y = e.getY();
 	            	state.mouseX = x;
         			state.mouseY = y;
-        			double dX = state.mouseX-50 - 800;
- 					double dY = state.mouseY-50 - 600;
- 					System.out.println((Math.atan2(dY, dX))/Math.PI);
+        			double dX = state.mouseX - 800;
+ 					double dY = state.mouseY - 600;
+ 					//System.out.println((Math.atan2(dY, dX))/Math.PI);
 	            }
 
 	            public void mouseDragged(java.awt.event.MouseEvent e)
@@ -124,7 +124,7 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
         		g2.setTransform(oldAT);		
         	}
         }
-        if(state.monsterSelected == true)
+        if(state.monster.Selected == true)
         {
         	g.drawImage(state.smallselection, state.monster.X, state.monster.Y, null);
         }

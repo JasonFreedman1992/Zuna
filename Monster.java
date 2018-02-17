@@ -5,6 +5,9 @@ public class Monster
 
 	}
 
+	public static double vx = 0;
+	public static double vy = 0;
+	
 	public static int X = 500;
 	public static int Y = 500;
 	public static int XCenter = 532;
