@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 public class Monster
 {
 	public Monster()
@@ -5,11 +7,12 @@ public class Monster
 
 	}
 
+	public Color color;
 	public static double vx = 0;
 	public static double vy = 0;
 	
-	public static int X = 500;
-	public static int Y = 500;
+	public static int X = 0;
+	public static int Y = 0;
 	public static int XCenter = 532;
 	public static int YCenter = 532;
 	public static int Acceleration = 10;

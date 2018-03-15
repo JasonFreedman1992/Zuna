@@ -1,5 +1,6 @@
 import java.awt.Image;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class State
 {
@@ -14,6 +15,8 @@ public class State
 	public static int height;
 
 	public Random r = new Random();
+
+	public ArrayList<Monster> monsters = new ArrayList<Monster>();
 
 	Monster monster = new Monster();
 
@@ -52,49 +55,43 @@ public class State
 		{
 			System.out.println("mouseX = " + mouseX);
 			System.out.println("mouseY = " + mouseY);
-			monster.X = mouseX-32;
-			monster.Y = mouseY-32;
-			System.out.println(mouseX + "," + mouseY);
-			monster.XCenter = mouseX;
-			monster.YCenter = monster.Y;
+
 			mouseClicked = false;
 		}
 		if(monster.Moving)
 		{
-			double friction = r.nextDouble();
+			//double friction = r.nextDouble();
 			//flow.generateFlow();
-			int x = monster.XCenter/100;
-			int y = monster.YCenter/100;
+			int x = monster.X/100;
+			int y = monster.Y/100;
 			double angle = flow.angle(y, x);
             if((angle*Math.PI) < 0)
             {
-                monster.vx = 20 - (-40 * angle);
+                monster.vx = 10 - (-20 * angle);
                 if(angle < 0 && angle >= -.5)
                 {
-                    monster.vy = 0 + (40 * angle);
+                    monster.vy = 0 + (20 * angle);
                 }
                 else if(angle < -.5 && angle >= - 1)
                 {
-                    monster.vy = 40 * (-1 - angle);
+                    monster.vy = 20 * (-1 - angle);
                 }
             }
             else if((angle*Math.PI) > 0)
             {
-                monster.vx = 20 + (-40 * angle);
+                monster.vx = 10 + (-20 * angle);
                 if(angle > 0 && angle <= .5)
                 {
-                    monster.vy = 0 + (40 * angle);
+                    monster.vy = 0 + (20 * angle);
                 }
                 else if(angle > .5 && angle < 1)
                 {
-                    monster.vy = -40 * (-1 + angle);
+                    monster.vy = -20 * (-1 + angle);
                 }
             }
 
             monster.X += monster.vx;
             monster.Y += monster.vy;
-            monster.XCenter += monster.vx;
-            monster.YCenter += monster.vy;
             System.out.println("monster vx =" + monster.vx);
             System.out.println("monster vy =" + monster.vy);
 

@@ -22,7 +22,7 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
 	    {
 	        public void mouseClicked(java.awt.event.MouseEvent e) 
 	        {
-
+	        	//state.mouseClicked = true;
 	        }
 	        public void mousePressed(java.awt.event.MouseEvent e)
 	        {
@@ -92,11 +92,6 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
     int count;
     protected void paintComponent(Graphics g)
     {
-    	if(!suh)
-    	{
-        	g.drawImage(state.bg, 0, 0, null);
-        	suh=true;
-        }
         g.drawImage(state.bg, 0, 0, null);
         g.setColor(Color.YELLOW);
        	g2 = (Graphics2D)g;
@@ -128,11 +123,11 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
         {
         	g.drawImage(state.smallselection, state.monster.X, state.monster.Y, null);
         }
-    	g.drawImage(state.cube, state.monster.X, state.monster.Y, null);
+
     	g2.setStroke(new BasicStroke(4));
     	g2.setColor(Color.RED);
-    	g2.drawLine(800, 600, 800, 600);
-    	g2.drawLine(state.monster.XCenter, state.monster.YCenter, state.monster.XCenter, state.monster.YCenter);
+    	//g2.drawLine(800, 600, 800, 600);
+    	g2.drawLine(state.monster.X, state.monster.Y, state.monster.X, state.monster.Y);
     	//g.drawImage(state.smallselection, state.monsterX, state.monsterY, null);
 
     }

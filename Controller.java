@@ -25,7 +25,14 @@ public class Controller implements KeyListener
 		if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_NUMPAD0)
 		{ 
             //state.flow.generateFlow();
-            state.monster.Moving = true;
+            if(state.monster.Moving)
+            {
+            	state.monster.Moving = false;
+            }
+            else
+            {
+            	state.monster.Moving = true;
+            }
 		}
 		if(e.getKeyCode() == KeyEvent.VK_F)
 		{
