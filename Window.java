@@ -38,18 +38,18 @@ public class Window extends JFrame
 		state.height = p_height;
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new java.awt.Dimension(1600, 1200));
+		setPreferredSize(new java.awt.Dimension(p_width, p_height));
 		//setMinimumSize(new java.awt.Dimension(1600, 1200));
-		setMaximumSize(new java.awt.Dimension(1600, 1200));
+		setMaximumSize(new java.awt.Dimension(p_width, p_height));
 		setVisible(true);
 		addKeyListener(control);
 		loadImages();
 		initPanel();
 		add(panel);
 		//state.f.generateFlow();
-		for(int i = 0; i < 12; i++)
+		for(int i = 0; i < 8; i++)
 		{
-			for(int j = 0; j < 16; j++)
+			for(int j = 0; j < 11; j++)
 			{		
 				//System.out.print(i + "," + j + " = " + state.f.grid[i][j] + "\n");
 			}

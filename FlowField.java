@@ -3,12 +3,12 @@ import java.util.Scanner;
 
 public class FlowField
 {
-	double height = 1200;
-	double width = 1600;
+	double height = 800;
+	double width = 1100;
 	int counter;
 	int directions = 20;
 
-	public double grid[][] = new double[12][16];
+	public double grid[][] = new double[8][11];
 	//public static Scanner console = new Scanner(System.in);
 	// 0 = 1-100
 	// 1 = 101-200

@@ -96,9 +96,9 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
         g.setColor(Color.YELLOW);
        	g2 = (Graphics2D)g;
        	g2.setStroke(new BasicStroke(3));
-        for(int i = 0; i < 12; i++)
+        for(int i = 0; i < 8; i++)
         {
-        	for(int j  = 0; j < 16; j++)
+        	for(int j  = 0; j < 11; j++)
         	{
         		x = (j*100);//+50;
         		y = (i*100);//+50;
@@ -122,12 +122,22 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
         if(state.monster.Selected == true)
         {
         	g.drawImage(state.smallselection, state.monster.X, state.monster.Y, null);
-        }
+		}
+		
+		g2.setStroke(new BasicStroke(4));
+		if(!state.monsters.isEmpty())
+		{
+			for(int i = 0; i < state.monsters.size(); i++)
+			{
+				g2.setColor(state.monsters.get(i).color);
+				g2.drawLine(state.monsters.get(i).X, state.monsters.get(i).Y, state.monsters.get(i).X, state.monsters.get(i).Y);
+			}
+		}
 
     	g2.setStroke(new BasicStroke(4));
     	g2.setColor(Color.RED);
-    	//g2.drawLine(800, 600, 800, 600);
-    	g2.drawLine(state.monster.X, state.monster.Y, state.monster.X, state.monster.Y);
+    	g2.drawLine(800, 600, 800, 600);
+    	//g2.drawLine(state.monster.X, state.monster.Y, state.monster.X, state.monster.Y);
     	//g.drawImage(state.smallselection, state.monsterX, state.monsterY, null);
 
     }

@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.Color;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class State
 
 	public Random r = new Random();
 
-	public ArrayList<Monster> monsters = new ArrayList<Monster>();
+	public static ArrayList<Monster> monsters = new ArrayList<Monster>();
 
 	Monster monster = new Monster();
 
@@ -38,6 +39,8 @@ public class State
 
 	public static boolean mouseClicked = false;
 
+	public static boolean Moving = false;
+
 	public static Image building;
 	public static Image bg;
 	public static Image cube;
@@ -45,55 +48,86 @@ public class State
 	public static Image rock;
 	public static Image line;
 
+	public static boolean createMonster = false;
+
 	public double imageAngleRad;
 
 	double premonsterAcceleration;
 
+	private double multiplier = .8;
+
 	public void update()
 	{
-		if(mouseClicked)
+		if(Moving)
 		{
-			System.out.println("mouseX = " + mouseX);
-			System.out.println("mouseY = " + mouseY);
-
-			mouseClicked = false;
+			try{
+				if(!monsters.isEmpty())
+				{
+					for(int i = 0; i < monsters.size(); i++)
+					{
+						//double friction = r.nextDouble();
+						//flow.generateFlow();
+						int x = monsters.get(i).X/100;
+						int y = monsters.get(i).Y/100;
+						double angle = flow.angle(y, x);
+						if((angle*Math.PI) < 0)
+						{
+							monsters.get(i).vx = (10 - (-20 * angle)) * monsters.get(i).multiplier;
+							if(angle < 0 && angle >= -.5)
+							{
+								monsters.get(i).vy = (0 + (20 * angle)) * monsters.get(i).multiplier;
+							}
+							else if(angle < -.5 && angle >= - 1)
+							{
+								monsters.get(i).vy = (20 * (-1 - angle)) * monsters.get(i).multiplier;
+							}
+						}
+						else if((angle*Math.PI) > 0)
+						{
+							monsters.get(i).vx = (10 + (-20 * angle)) * monsters.get(i).multiplier;
+							if(angle > 0 && angle <= .5)
+							{
+								monsters.get(i).vy = (0 + (20 * angle)) * monsters.get(i).multiplier;
+							}
+							else if(angle > .5 && angle < 1)
+							{
+								monsters.get(i).vy = (-20 * (-1 + angle)) * monsters.get(i).multiplier;
+							}
+						}
+					}
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
+			}
 		}
-		if(monster.Moving)
+			
+		if(createMonster)
 		{
-			//double friction = r.nextDouble();
-			//flow.generateFlow();
-			int x = monster.X/100;
-			int y = monster.Y/100;
-			double angle = flow.angle(y, x);
-            if((angle*Math.PI) < 0)
-            {
-                monster.vx = 10 - (-20 * angle);
-                if(angle < 0 && angle >= -.5)
-                {
-                    monster.vy = 0 + (20 * angle);
-                }
-                else if(angle < -.5 && angle >= - 1)
-                {
-                    monster.vy = 20 * (-1 - angle);
-                }
-            }
-            else if((angle*Math.PI) > 0)
-            {
-                monster.vx = 10 + (-20 * angle);
-                if(angle > 0 && angle <= .5)
-                {
-                    monster.vy = 0 + (20 * angle);
-                }
-                else if(angle > .5 && angle < 1)
-                {
-                    monster.vy = -20 * (-1 + angle);
-                }
-            }
+			System.out.println("in create");
+			int red = r.nextInt(255);
+			int g = r.nextInt(255);
+			int b = r.nextInt(255);
 
-            monster.X += monster.vx;
-            monster.Y += monster.vy;
-            System.out.println("monster vx =" + monster.vx);
-            System.out.println("monster vy =" + monster.vy);
+			Color c = new Color(red, g, b);
+
+			Monster mon = new Monster();
+			mon.color = c;
+			mon.multiplier = r.nextDouble();
+			monsters.add(mon);
+		}
+
+		if(!monsters.isEmpty())
+		{
+			for(int i = 0; i < monsters.size(); i++)
+			{
+				monsters.get(i).X += monsters.get(i).vx;
+				monsters.get(i).Y += monsters.get(i).vy;
+			}
+		}
+            //System.out.println("monster vx =" + monster.vx);
+            //System.out.println("monster vy =" + monster.vy);
 
     // 		if(down)
     // 		{
@@ -116,6 +150,6 @@ public class State
 				// monsterXCenter=monsterXCenter-(int)premonsterAcceleration;
     // 		}
 
-		}
+		
 	}
 }
