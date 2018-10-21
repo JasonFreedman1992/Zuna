@@ -105,8 +105,9 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
         		
         		//
         		// use center of image
-        		// 
-        		g.fillOval(x+43, y+43, 15, 15);
+				// 
+				
+        		//g.fillOval(x+43, y+43, 15, 15);
         		AffineTransform oldAT = g2.getTransform();
  				double dX = state.mouseX-50 - x;
  				double dY = state.mouseY-50 - y;
@@ -115,7 +116,7 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
  				//state.imageAngleRad = imageAngleRad; //;
  				//System.out.println(imageAngleRad);
  				g2.rotate(imageAngleRad, x+50, y+50);
-        		g2.drawImage(state.line, x+50, y+50, null);
+        		//g2.drawImage(state.line, x+50, y+50, null);
         		g2.setTransform(oldAT);		
         	}
         }
@@ -124,7 +125,7 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
         	g.drawImage(state.smallselection, state.monster.X, state.monster.Y, null);
 		}
 		
-		g2.setStroke(new BasicStroke(4));
+		g2.setStroke(new BasicStroke(6));
 		if(!state.monsters.isEmpty())
 		{
 			for(int i = 0; i < state.monsters.size(); i++)

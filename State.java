@@ -94,6 +94,8 @@ public class State
 								monsters.get(i).vy = (-20 * (-1 + angle)) * monsters.get(i).multiplier;
 							}
 						}
+						monsters.get(i).X += monsters.get(i).vx;
+						monsters.get(i).Y += monsters.get(i).vy;
 					}
 				}
 			}
@@ -115,17 +117,19 @@ public class State
 			Monster mon = new Monster();
 			mon.color = c;
 			mon.multiplier = r.nextDouble();
+			mon.X = r.nextInt(1050)+25;
+			mon.Y = r.nextInt(750)+25;
 			monsters.add(mon);
 		}
 
-		if(!monsters.isEmpty())
-		{
-			for(int i = 0; i < monsters.size(); i++)
-			{
-				monsters.get(i).X += monsters.get(i).vx;
-				monsters.get(i).Y += monsters.get(i).vy;
-			}
-		}
+		// if(!monsters.isEmpty())
+		// {
+		// 	for(int i = 0; i < monsters.size(); i++)
+		// 	{
+		// 		monsters.get(i).X += monsters.get(i).vx;
+		// 		monsters.get(i).Y += monsters.get(i).vy;
+		// 	}
+		// }
             //System.out.println("monster vx =" + monster.vx);
             //System.out.println("monster vy =" + monster.vy);
 
