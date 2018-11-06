@@ -1,6 +1,9 @@
-javac Controller.java
-javac State.java
-javac Window.java
 javac Main.java
+javac Window.java
 javac DrawPanel.java
-Echo Compiling Done!
+javac State.java
+javac FlowField.java
+javac Monster.java
+javac Controller.java
+javac CostField.java
+java Main

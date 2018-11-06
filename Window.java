@@ -5,37 +5,29 @@ import java.awt.event.*;
 import javax.imageio.ImageIO;
 import java.util.Scanner;
 
-
 public class Window extends JFrame
 {
-	State state = new State();
-	Controller control = new Controller();
+    State state = new State();
+    Controller control = new Controller();
+    JPanel panel;
 
-	JPanel panel;
-	Graphics g;
-	Graphics2D g2;
-	//Scanner console = new Scanner(System.in);
 	Timer timer = new Timer(30, new ActionListener()
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
 			panel.setSize(state.width, state.height);
 			panel.repaint();
-			state.update();
-			
-							
-			//String s = console.next();
-			//chew();
+			state.update();				
 		}
 	});
 
-	public void init(int p_width, int p_height)
-	{
+    public void init(int p_width, int p_height, int p_density) throws IOException
+    {
 		setTitle("Zuna RTS");
 		setSize(p_width, p_height);
 		state.width = p_width;
 		state.height = p_height;
+		state.density = p_density;
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new java.awt.Dimension(p_width, p_height));
@@ -43,42 +35,38 @@ public class Window extends JFrame
 		setMaximumSize(new java.awt.Dimension(p_width, p_height));
 		setVisible(true);
 		addKeyListener(control);
-		loadImages();
-		initPanel();
+
+		//
+		// load images
+		//
+		state.line = ImageIO.read(new File("Line.png"));
+		state.bg = ImageIO.read(new File("Background.jpg"));
+
+		int x_count = p_width/p_density;
+		int y_count = p_height/p_density;
+		state.x_count = x_count;
+		state.y_count = y_count;
+		CostField field = new CostField();
+		
+		field.density = p_density;
+
+		state.cost = field;
+		panel = new DrawPanel(x_count, y_count, p_density);
 		add(panel);
-		//state.f.generateFlow();
-		for(int i = 0; i < 8; i++)
-		{
-			for(int j = 0; j < 11; j++)
-			{		
-				//System.out.print(i + "," + j + " = " + state.f.grid[i][j] + "\n");
-			}
+		state.started = true;
+		//state.update();
+		panel.setSize(state.width, state.height);
+		panel.repaint();
+
+		try{
+			Thread.sleep(1000);
 		}
+		catch(Exception e)
+		{
+
+		}
+
 		timer.start();
-	}
-
-	void loadImages()
-	{
-        try
-        {
-            state.rock = ImageIO.read(new File("Rock.png"));
-            state.smallselection = ImageIO.read(new File("smallselection.png"));
-            state.bg = ImageIO.read(new File("Background.jpg"));
-            state.building = ImageIO.read(new File("Building2.png"));
-            state.cube = ImageIO.read(new File("Blue Alien.png"));
-            state.line = ImageIO.read(new File("Line.png"));
-        }
-        catch(IOException ex)
-        {
-
-        }
-	}
-
-    void initPanel()
-    {
-        panel = new DrawPanel();
+		
     }
-
-
-
 }

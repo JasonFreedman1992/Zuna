@@ -25,18 +25,18 @@ public class Controller implements KeyListener
 		if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_NUMPAD0)
 		{ 
             //state.flow.generateFlow();
-            if(state.Moving)
+            if(state.moving)
             {
-            	state.Moving = false;
+            	state.moving = false;
             }
             else
             {
-            	state.Moving = true;
+            	state.moving = true;
             }
 		}
 		if(e.getKeyCode() == KeyEvent.VK_F)
 		{
-			state.createMonster = true;
+			state.create_monster = true;
 		}
 	}
 
@@ -64,7 +64,7 @@ public class Controller implements KeyListener
         }
         if(e.getKeyCode() == KeyEvent.VK_F)
         {
-        	state.createMonster = false;
+        	state.create_monster = false;
         }
 	}
 

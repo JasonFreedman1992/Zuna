@@ -1,8 +1,8 @@
 import javax.swing.JPanel;
-//import java.awt.Graphics;
-//import java.awt.Graphics2D;
-//import java.awt.geom.AffineTransform;
-//import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.Color;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -12,58 +12,31 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
 {
 	State state = new State();
 	Graphics2D g2;
-	//FlowField flow = new FlowField();
-	int counter;
-	boolean suh = false;
-	public DrawPanel()
+	int density;
+	int x_count;
+	int y_count;
+	public DrawPanel(int p_x_count, int p_y_count, int p_density)
 	{
-		//state.flow.generateFlow();
+		setDoubleBuffered(true);
+		density = p_density;
+		x_count = p_x_count;
+		y_count = p_y_count;
 		addMouseListener(new java.awt.event.MouseAdapter()
 	    {
 	        public void mouseClicked(java.awt.event.MouseEvent e) 
 	        {
-	        	//state.mouseClicked = true;
+
 	        }
 	        public void mousePressed(java.awt.event.MouseEvent e)
 	        {
-	        	// if(javax.swing.SwingUtilities.isRightMouseButton(e))
-	        	// {
 
-	        	// }
-	        	// if(javax.swing.SwingUtilities.isLeftMouseButton(e))
-	        	// {
-	        	 	state.mouseClicked = true;
-		        // 	if(state.mouseX <= state.monsterX+64  && state.mouseX >= state.monsterX && state.mouseY <= state.monsterY+64 && state.mouseY >= state.monsterY)
-		        // 	{
-		        // 		//state.monsterSelected = true;
-		        // 	}
-		        // 	else
-		        // 	{
-		        // 		//state.monsterSelected = false;
-		        // 	}
-	        	// }
 
 	        	
 	        }
 
 	        public void mouseReleased(java.awt.event.MouseEvent e)
 	        {
-	        	// if(javax.swing.SwingUtilities.isRightMouseButton(e))
-	        	// {
-	        	// 	if(state.monsterSelected == true)
-	        	// 	{
-	        	// 		state.monsterXDestination = state.mouseX;
-	        	// 		state.monsterYDestination = state.mouseY;
-	        	// 		if(state.mouseX <= state.monsterX+64  && state.mouseX >= state.monsterX && state.mouseY <= state.monsterY+64 && state.mouseY >= state.monsterY)
-			       //  	{
-
-			       //  	}
-			       //  	else
-			       //  	{
-
-			       //  	}
-	        	// 	}
-	        	// }   	
+ 	
 	        }
 	    });
 
@@ -75,9 +48,8 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
 	            	int y = e.getY();
 	            	state.mouseX = x;
         			state.mouseY = y;
-        			double dX = state.mouseX - 800;
- 					double dY = state.mouseY - 600;
- 					//System.out.println((Math.atan2(dY, dX))/Math.PI);
+        			//double dX = state.mouseX - 800;
+ 					//double dY = state.mouseY - 600;
 	            }
 
 	            public void mouseDragged(java.awt.event.MouseEvent e)
@@ -86,45 +58,42 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
 	            }
 	    });
 	}
+	
 	double imageAngleRad;
     int x;
     int y;
-    int count;
+    
     protected void paintComponent(Graphics g)
     {
-        g.drawImage(state.bg, 0, 0, null);
-        g.setColor(Color.YELLOW);
-       	g2 = (Graphics2D)g;
-       	g2.setStroke(new BasicStroke(3));
-        for(int i = 0; i < 8; i++)
-        {
-        	for(int j  = 0; j < 11; j++)
-        	{
-        		x = (j*100);//+50;
-        		y = (i*100);//+50;
-        		
-        		//
-        		// use center of image
-				// 
-				
-        		//g.fillOval(x+43, y+43, 15, 15);
-        		AffineTransform oldAT = g2.getTransform();
- 				double dX = state.mouseX-50 - x;
- 				double dY = state.mouseY-50 - y;
- 				imageAngleRad = Math.atan2(dY, dX);
- 				state.flow.grid[i][j] = imageAngleRad/Math.PI;
- 				//state.imageAngleRad = imageAngleRad; //;
- 				//System.out.println(imageAngleRad);
- 				g2.rotate(imageAngleRad, x+50, y+50);
-        		//g2.drawImage(state.line, x+50, y+50, null);
+		//System.out.println(x_count);
+		//System.out.println("y"+y_count);
+		g.drawImage(state.bg, 0, 0, null);
+		g.setColor(Color.YELLOW);
+		g2 = (Graphics2D)g;
+		g2.setStroke(new BasicStroke(3));
+		for(int i = 0; i < y_count; i++)
+		{
+			for(int j = 0; j < x_count; j++)
+			{
+				x = j*density;
+				y = i*density;
+
+				//g.fillOval(x-4, y-4, 8, 8);
+
+				AffineTransform oldAT = g2.getTransform();
+
+				double dX = state.mouseX - x;
+				double dY = state.mouseY - y;
+				imageAngleRad = Math.atan2(dY, dX);
+
+				g2.rotate(imageAngleRad, x, y);
+
+				//g2.drawImage(state.line, x, y, null);
+
         		g2.setTransform(oldAT);		
-        	}
-        }
-        if(state.monster.Selected == true)
-        {
-        	g.drawImage(state.smallselection, state.monster.X, state.monster.Y, null);
+			}
 		}
-		
+
 		g2.setStroke(new BasicStroke(6));
 		if(!state.monsters.isEmpty())
 		{
@@ -134,13 +103,6 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
 				g2.drawLine(state.monsters.get(i).X, state.monsters.get(i).Y, state.monsters.get(i).X, state.monsters.get(i).Y);
 			}
 		}
-
-    	g2.setStroke(new BasicStroke(4));
-    	g2.setColor(Color.RED);
-    	g2.drawLine(800, 600, 800, 600);
-    	//g2.drawLine(state.monster.X, state.monster.Y, state.monster.X, state.monster.Y);
-    	//g.drawImage(state.smallselection, state.monsterX, state.monsterY, null);
-
     }
 
     public void updatePaint()
@@ -151,7 +113,7 @@ public class DrawPanel extends JPanel //implements MouseMotionListener
 
     public void save()// throws IOException
     {
-        //ImageIO.write(paintImage, "PNG", new File("Board.png"));
+
     }
 
 }

@@ -1,40 +1,21 @@
-import java.util.Random;
-import java.util.Scanner;
-
 public class FlowField
 {
-	double height = 800;
-	double width = 1100;
-	int counter;
-	int directions = 20;
 
-	public double grid[][] = new double[8][11];
-	//public static Scanner console = new Scanner(System.in);
-	// 0 = 1-100
-	// 1 = 101-200
-	// 2 = 201-300
+    public CostField cost = new CostField();
 
-	// pixel 450 = 44
-	// pixel 1600 = 159
+    public double angle(int p_i, int p_j)
+    {
+        return grid[p_i][p_j];
+    }
 
-	public FlowField()
-	{
+    public FlowField(int p_x_counter, int p_y_counter, CostField p_field)
+    {
+        grid = new double[p_y_counter][p_x_counter];
+        cost = p_field;
+    }
 
-		//Scanner console = new Scanner(System.in);
-		//System.out.println(z);
-	}
+    double height;
+    double width;
+    public double grid[][]; // = new double[8][11];
 
-	public double angle(int p_i, int p_j)
-	{
-		return grid[p_i][p_j];
-	}
-
-	public double vy()
-	{
-		return 5;
-	}
-	// public FlowField(int p_monsterXCenter, int p_monsterYCenter, int p_monsterXDestination, int p_monsterYDestination, int p_rockX, int p_rockY)
-	// {
-		
-	// }
 }
